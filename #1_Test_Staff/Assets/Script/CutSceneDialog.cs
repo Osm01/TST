@@ -22,9 +22,10 @@ public class CutSceneDialog : MonoBehaviour
             var AlphaValue = image.color;
             AlphaValue.a = 1f;
             image.color = AlphaValue;
-            Invoke("CharacterCutScneDialog", 1f);
+            //Invoke("CharacterCutScneDialog", 1f);
+            StartCoroutine(TeleportDialog());
         }
-       
+
     }
     void CharacterCutScneDialog()
     {
@@ -32,7 +33,17 @@ public class CutSceneDialog : MonoBehaviour
         AlphaValue.a = 0f;
         image.color = AlphaValue;
         _CutScene = true;
-        Player.transform.localPosition = DialogTransform.localPosition;
-        Player.transform.eulerAngles = DialogTransform.eulerAngles;
+        Player.transform.position = new Vector3(-7, 0, -2);
+    }
+    IEnumerator TeleportDialog()
+    {
+
+        yield return new WaitForSeconds(1f);
+        var AlphaValue = image.color;
+        AlphaValue.a = 0f;
+        image.color = AlphaValue;
+        _CutScene = true;
+        Player.transform.position = new Vector3(-7, 0, -2);
+        Player.transform.eulerAngles = new Vector3(0, 20, 0);
     }
 }
