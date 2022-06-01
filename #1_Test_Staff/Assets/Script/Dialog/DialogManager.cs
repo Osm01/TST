@@ -9,15 +9,52 @@ public class DialogManager : MonoBehaviour
     [SerializeField] TMP_Text NameTxt;
     int CurrentDialog;
     int CurrentSentence;
+    int indexChar;
+    float timer = 0;
+    bool isEnabled = false;
     private void Start()
     {
         CurrentDialog = 0;
         CurrentSentence = 0;
+        indexChar = 0;
     }
-    void SetDialog()
+    private void Update()
     {
-        DialogTxt.text = Qrd[CurrentDialog].Sentences[CurrentSentence];
-        NameTxt.text = Qrd[CurrentDialog].Name;
+        if (isEnabled)
+        {
+            timer -= Time.deltaTime;
+            // should optimize this line for display next name with their sentences and problem with size of array in sentences 
+            NameTxt.text = Qrd[CurrentDialog].Name;
+            if (CurrentSentence <= Qrd[CurrentDialog].Sentences.Length)
+            {
+                if (indexChar <= Qrd[CurrentDialog].Sentences[CurrentSentence].Length)
+                {
+                    if (timer <= 0)
+                    {
+                        AddWriter(DialogTxt, Qrd[CurrentDialog].Sentences[CurrentSentence]);
+                        timer = .1f;
+                        indexChar++;
+                    }
+                }
+                else
+                {
+                    CurrentSentence++;
+                }
+            }
+           // CurrentSentence++;
+        }
+    }
+    private void OnEnable()
+    {
+        isEnabled = true;
+    }
+    private void OnDisable()
+    {
+        isEnabled = false;
+    }
+    public void AddWriter(TMP_Text txt,string w)
+    {
+        txt.text = w.Substring(0,indexChar);
     }
 }
 
