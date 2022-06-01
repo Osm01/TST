@@ -24,18 +24,9 @@ public class CutSceneDialog : MonoBehaviour
             var AlphaValue = image.color;
             AlphaValue.a = 1f;
             image.color = AlphaValue;
-            //Invoke("CharacterCutScneDialog", 1f);
             StartCoroutine(TeleportDialog());
         }
 
-    }
-    void CharacterCutScneDialog()
-    {
-        var AlphaValue = image.color;
-        AlphaValue.a = 0f;
-        image.color = AlphaValue;
-        _CutScene = true;
-        Player.transform.position = new Vector3(-7, 0, -2);
     }
     IEnumerator TeleportDialog()
     {
