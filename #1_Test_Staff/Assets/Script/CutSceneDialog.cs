@@ -6,6 +6,7 @@ public class CutSceneDialog : MonoBehaviour
 {
     [SerializeField] GameObject Player;
     [SerializeField] Transform DialogTransform;
+    [SerializeField] GameObject CanvasDialog;
     private SecondCharacterScript secondCharacterScript;
     private Image image;
     public bool _CutScene;
@@ -45,5 +46,6 @@ public class CutSceneDialog : MonoBehaviour
         _CutScene = true;
         Player.transform.position = new Vector3(-7, 0, -2);
         Player.transform.eulerAngles = new Vector3(0, 20, 0);
+        CanvasDialog.SetActive(true);
     }
 }
