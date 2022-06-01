@@ -15,6 +15,7 @@ public class CutSceneDialog : MonoBehaviour
         secondCharacterScript = FindObjectOfType<SecondCharacterScript>();
         image = this.gameObject.GetComponent<Image>();
         _CutScene = false;
+        CanvasDialog.SetActive(false);
     }
     private void Update()
     {
