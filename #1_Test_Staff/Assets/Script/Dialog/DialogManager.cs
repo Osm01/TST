@@ -24,27 +24,35 @@ public class DialogManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
             // should optimize this line for display next name with their sentences and problem with size of array in sentences 
-            NameTxt.text = Qrd[CurrentDialog].Name;
-            if (CurrentSentence < Qrd[CurrentDialog].Sentences.Length)
+            
+            if(CurrentDialog < Qrd[CurrentDialog].Name.Length)
             {
-                if (indexChar <= Qrd[CurrentDialog].Sentences[CurrentSentence].Length)
+                NameTxt.text = Qrd[CurrentDialog].Name;
+                if (CurrentSentence < Qrd[CurrentDialog].Sentences.Length)
                 {
-                    if (timer <= 0)
+                    if (indexChar <= Qrd[CurrentDialog].Sentences[CurrentSentence].Length)
                     {
-                        AddWriter(DialogTxt, Qrd[CurrentDialog].Sentences[CurrentSentence]);
-                        timer = .1f;
-                        indexChar++;
+                        if (timer <= 0)
+                        {
+                            AddWriter(DialogTxt, Qrd[CurrentDialog].Sentences[CurrentSentence]);
+                            timer = .1f;
+                            indexChar++;
+                        }
+                    }
+                    else
+                    {
+                        indexChar = 0;
+                        CurrentSentence++;
                     }
                 }
-                else
-                {
-                    indexChar = 0;
-                    CurrentSentence++;
-                }
+
             }
-            
-           // CurrentSentence++;
+            else
+            {
+                CurrentDialog++;
+            }
         }
+           
     }
     private void OnEnable()
     {

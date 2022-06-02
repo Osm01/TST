@@ -6681,7 +6681,11 @@ MonoBehaviour:
     Sentences:
     - Hello I'm Nabih
     - We gonna have so much fun today
-    - hsjkfsjfbs
+  - Name: Fatima
+    Sentences:
+    - Hi I'm Fatima
+    - 'Yes i''m so exciting about '
+    - ....
   DialogTxt: {fileID: 1014928209}
   NameTxt: {fileID: 2001291514}
 --- !u!1 &1872641387
