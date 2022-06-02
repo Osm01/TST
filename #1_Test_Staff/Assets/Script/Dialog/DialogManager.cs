@@ -7,6 +7,8 @@ public class DialogManager : MonoBehaviour
     public List<Dialog> Qrd;
     [SerializeField] TMP_Text DialogTxt;
     [SerializeField] TMP_Text NameTxt;
+    private MovementInput MovePlayer;
+    private CutSceneDialog cutSceneDialog;
     int CurrentDialog;
     int CurrentSentence;
     int indexChar;
@@ -17,11 +19,15 @@ public class DialogManager : MonoBehaviour
         CurrentDialog = 0;
         CurrentSentence = 0;
         indexChar = 0;
+        MovePlayer = FindObjectOfType<MovementInput>();
+        cutSceneDialog = FindObjectOfType<CutSceneDialog>();
     }
     private void Update()
     {
         if (isEnabled)
         {
+            cutSceneDialog.CanvasDialog.gameObject.SetActive(true);
+            MovePlayer.enabled = false;
             timer -= Time.deltaTime;
             if (CurrentDialog < Qrd.Count)
             {
@@ -45,12 +51,25 @@ public class DialogManager : MonoBehaviour
                 }
                 else
                 {
-                        CurrentSentence = 0;
-                        indexChar = 0;
-                        CurrentDialog++;
+                    CurrentSentence = 0;
+                    indexChar = 0;
+                    CurrentDialog++;
                 }
 
             }
+            // End of dialog make 
+            else
+            {
+                isEnabled = false;
+            }
+        }
+        else
+        {
+            CurrentSentence = 0;
+            indexChar = 0;
+            CurrentDialog=0;
+            cutSceneDialog.CanvasDialog.gameObject.SetActive(false);
+            MovePlayer.enabled = true;
         }
            
     }

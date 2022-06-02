@@ -6,7 +6,7 @@ public class CutSceneDialog : MonoBehaviour
 {
     [SerializeField] GameObject Player;
     [SerializeField] Transform DialogTransform;
-    [SerializeField] GameObject CanvasDialog;
+    public GameObject CanvasDialog;
     private SecondCharacterScript secondCharacterScript;
     private Image image;
     public bool _CutScene;
