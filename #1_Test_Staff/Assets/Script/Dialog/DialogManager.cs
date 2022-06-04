@@ -8,6 +8,8 @@ public class DialogManager : MonoBehaviour
     public List<Dialog> Qrd;
     [SerializeField] TMP_Text DialogTxt;
     [SerializeField] TMP_Text NameTxt;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;
     private MovementInput MovePlayer;
     private CutSceneDialog cutSceneDialog;
     int CurrentDialog;
@@ -56,6 +58,24 @@ public class DialogManager : MonoBehaviour
                     indexChar = 0;
                     CurrentDialog++;
                 }
+                //Link audioclip with dialog
+                if (CurrentDialog == 0 && CurrentSentence==0)
+                {
+                    audioSource.clip = audioClips[0];
+                }
+                if (CurrentDialog == 0 && CurrentSentence == 1)
+                {
+                    audioSource.clip = audioClips[1];
+                }
+                if (CurrentDialog == 1 && CurrentSentence == 0)
+                {
+                    audioSource.clip = audioClips[2];
+                }
+                if (CurrentDialog == 1 && CurrentSentence == 1)
+                {
+                    audioSource.clip = audioClips[3];
+                }
+                audioSource.Play();
 
             }
             // End of dialog make 
