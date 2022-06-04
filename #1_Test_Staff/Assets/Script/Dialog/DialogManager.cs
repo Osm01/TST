@@ -17,6 +17,8 @@ public class DialogManager : MonoBehaviour
     int indexChar;
     float timer = 0;
     bool isEnabled = false;
+    bool _audioPlayed = true;
+    bool WaitForAudio = false;
     private void Start()
     {
         CurrentDialog = 0;
@@ -24,9 +26,11 @@ public class DialogManager : MonoBehaviour
         indexChar = 0;
         MovePlayer = FindObjectOfType<MovementInput>();
         cutSceneDialog = FindObjectOfType<CutSceneDialog>();
+        AudioPlay();
     }
     private void Update()
     {
+        
         if (isEnabled)
         {
             cutSceneDialog.CanvasDialog.gameObject.SetActive(true);
@@ -39,6 +43,7 @@ public class DialogManager : MonoBehaviour
                 {
                     if (indexChar <= Qrd[CurrentDialog].Sentences[CurrentSentence].Length)
                     {
+                        WaitForAudio = true;
                         if (timer <= 0)
                         {
                             AddWriter(DialogTxt, Qrd[CurrentDialog].Sentences[CurrentSentence]);
@@ -46,37 +51,25 @@ public class DialogManager : MonoBehaviour
                             indexChar++;
                         }
                     }
+
                     else
                     {
-                        indexChar = 0;
-                        CurrentSentence++;
+                        if(!WaitForAudio)
+                        {
+                            _audioPlayed = true;
+                            indexChar = 0;
+                            CurrentSentence++;
+                        }
                     }
                 }
                 else
                 {
+                    _audioPlayed = true;
                     CurrentSentence = 0;
                     indexChar = 0;
                     CurrentDialog++;
                 }
-                //Link audioclip with dialog
-                if (CurrentDialog == 0 && CurrentSentence==0)
-                {
-                    audioSource.clip = audioClips[0];
-                }
-                if (CurrentDialog == 0 && CurrentSentence == 1)
-                {
-                    audioSource.clip = audioClips[1];
-                }
-                if (CurrentDialog == 1 && CurrentSentence == 0)
-                {
-                    audioSource.clip = audioClips[2];
-                }
-                if (CurrentDialog == 1 && CurrentSentence == 1)
-                {
-                    audioSource.clip = audioClips[3];
-                }
-                audioSource.Play();
-
+               
             }
             // End of dialog make 
             else
@@ -105,6 +98,36 @@ public class DialogManager : MonoBehaviour
     public void AddWriter(TMP_Text txt,string w)
     {
         txt.text = w.Substring(0,indexChar);
+    }
+
+   
+    void AudioPlay()
+    {
+        while(isEnabled)
+        {
+            if (CurrentDialog == 0 && CurrentSentence == 0)
+            {
+                audioSource.PlayOneShot(audioClips[0]);
+            }
+            if (CurrentDialog == 0 && CurrentSentence == 1)
+            {
+                audioSource.PlayOneShot(audioClips[1]);
+            }
+            if (CurrentDialog == 1 && CurrentSentence == 0)
+            {
+                audioSource.PlayOneShot(audioClips[2]);
+            }
+            if (CurrentDialog == 1 && CurrentSentence == 1)
+            {
+                audioSource.PlayOneShot(audioClips[3]);
+            }
+            if (!audioSource.isPlaying)
+            {
+                WaitForAudio = false;
+            }
+        }
+       
+        
     }
 }
 
