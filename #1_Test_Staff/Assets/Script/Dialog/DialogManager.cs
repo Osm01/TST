@@ -43,7 +43,6 @@ public class DialogManager : MonoBehaviour
                 {
                     if (indexChar <= Qrd[CurrentDialog].Sentences[CurrentSentence].Length)
                     {
-                        WaitForAudio = true;
                         if (timer <= 0)
                         {
                             AddWriter(DialogTxt, Qrd[CurrentDialog].Sentences[CurrentSentence]);
@@ -61,7 +60,6 @@ public class DialogManager : MonoBehaviour
                 }
                 else
                 {
-                    _audioPlayed = true;
                     CurrentSentence = 0;
                     indexChar = 0;
                     CurrentDialog++;
