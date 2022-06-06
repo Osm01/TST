@@ -17,8 +17,7 @@ public class DialogManager : MonoBehaviour
     int indexChar;
     float timer = 0;
     bool isEnabled = false;
-    bool _audioPlayed = true;
-    bool WaitForAudio = false;
+    private int audioIndex = 0;
     private void Start()
     {
         CurrentDialog = 0;
@@ -26,13 +25,14 @@ public class DialogManager : MonoBehaviour
         indexChar = 0;
         MovePlayer = FindObjectOfType<MovementInput>();
         cutSceneDialog = FindObjectOfType<CutSceneDialog>();
-        AudioPlay();
+        //AudioPlay();
     }
     private void Update()
     {
         
         if (isEnabled)
         {
+            AudioPlay();
             cutSceneDialog.CanvasDialog.gameObject.SetActive(true);
             MovePlayer.enabled = false;
             timer -= Time.deltaTime;
@@ -54,12 +54,9 @@ public class DialogManager : MonoBehaviour
 
                     else
                     {
-                        if(!WaitForAudio)
-                        {
-                            _audioPlayed = true;
                             indexChar = 0;
                             CurrentSentence++;
-                        }
+                        
                     }
                 }
                 else
@@ -103,31 +100,38 @@ public class DialogManager : MonoBehaviour
    
     void AudioPlay()
     {
-        while(isEnabled)
-        {
-            if (CurrentDialog == 0 && CurrentSentence == 0)
+            if (!audioSource.isPlaying && CurrentDialog == 0 && CurrentSentence == 0)
             {
-                audioSource.PlayOneShot(audioClips[0]);
+                if (audioIndex != 0)
+                  return;
+                audioSource.PlayOneShot(audioClips[audioIndex]);
+                audioIndex++;
             }
-            if (CurrentDialog == 0 && CurrentSentence == 1)
+            if (!audioSource.isPlaying && CurrentDialog == 0 && CurrentSentence == 1)
             {
-                audioSource.PlayOneShot(audioClips[1]);
-            }
-            if (CurrentDialog == 1 && CurrentSentence == 0)
-            {
-                audioSource.PlayOneShot(audioClips[2]);
-            }
-            if (CurrentDialog == 1 && CurrentSentence == 1)
-            {
-                audioSource.PlayOneShot(audioClips[3]);
-            }
-            if (!audioSource.isPlaying)
-            {
-                WaitForAudio = false;
-            }
+            if (audioIndex != 1)
+                return;
+               audioSource.PlayOneShot(audioClips[audioIndex]);
+                audioIndex++;
+
         }
-       
-        
+            if (!audioSource.isPlaying && CurrentDialog == 1 && CurrentSentence == 0)
+            {
+                if (audioIndex != 2)
+                return;
+                audioSource.PlayOneShot(audioClips[audioIndex]);
+                 audioIndex++;
+
+        }
+            if (!audioSource.isPlaying && CurrentDialog == 1 && CurrentSentence == 1)
+            {
+                if (audioIndex != 3)
+                return;
+                audioSource.PlayOneShot(audioClips[audioIndex]);
+                audioIndex++;
+
+        }
+           
     }
 }
 
