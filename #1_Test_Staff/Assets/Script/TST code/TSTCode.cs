@@ -9,6 +9,7 @@ public class TSTCode : MonoBehaviour
     public TextMeshProUGUI textMeshProUGUI;
     public Button btnYes;
     public Button btnNo;
+    
     private void Awake()
     {
         string qt = "Do u want to quit the Game!!";
