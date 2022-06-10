@@ -98,7 +98,7 @@ public class DialogManager : MonoBehaviour
    
     void AudioPlay()
     {
-            if (!audioSource.isPlaying && CurrentDialog == 0 && CurrentSentence == 0)
+           if (!audioSource.isPlaying && CurrentDialog == 0 && CurrentSentence == 0)
             {
                 if (audioIndex != 0)
                   return;
@@ -109,26 +109,23 @@ public class DialogManager : MonoBehaviour
             {
             if (audioIndex != 1)
                 return;
-               audioSource.PlayOneShot(audioClips[audioIndex]);
-                audioIndex++;
-
-        }
+                audioSource.PlayOneShot(audioClips[audioIndex]);
+               audioIndex++;
+            }
             if (!audioSource.isPlaying && CurrentDialog == 1 && CurrentSentence == 0)
             {
                 if (audioIndex != 2)
                 return;
                 audioSource.PlayOneShot(audioClips[audioIndex]);
-                 audioIndex++;
-
-        }
+                audioIndex++;
+            }
             if (!audioSource.isPlaying && CurrentDialog == 1 && CurrentSentence == 1)
             {
                 if (audioIndex != 3)
                 return;
                 audioSource.PlayOneShot(audioClips[audioIndex]);
-                audioIndex++;
-
-        }
+               audioIndex++;
+            }
            
     }
 }
